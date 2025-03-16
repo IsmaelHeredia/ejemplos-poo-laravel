@@ -1,0 +1,521 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de Productos",
+        "description": "API que gestiona productos con ejemplos de POO",
+        "contact": {
+            "email": "soporte@localhost.com"
+        },
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/productos/{id}/stock": {
+            "put": {
+                "tags": [
+                    "Api"
+                ],
+                "summary": "Modificar stock de manera segura",
+                "operationId": "5dce3b19e253fd0ffb2090c70776bd67",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "cantidad"
+                                ],
+                                "properties": {
+                                    "cantidad": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Stock actualizado"
+                    }
+                }
+            }
+        },
+        "/api/pagos": {
+            "post": {
+                "tags": [
+                    "Api"
+                ],
+                "summary": "Procesar un pago",
+                "operationId": "5a2837d6331d4856e755deaca35c5605",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "metodo",
+                                    "monto"
+                                ],
+                                "properties": {
+                                    "metodo": {
+                                        "type": "string",
+                                        "example": "tarjeta"
+                                    },
+                                    "monto": {
+                                        "type": "number",
+                                        "example": 100
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Pago procesado correctamente"
+                    },
+                    "400": {
+                        "description": "Método de pago no válido"
+                    }
+                }
+            }
+        },
+        "/api/envios": {
+            "post": {
+                "tags": [
+                    "Api"
+                ],
+                "summary": "Procesar un envío",
+                "operationId": "0609476303e7a819450693a677636e13",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "metodo",
+                                    "producto_id"
+                                ],
+                                "properties": {
+                                    "metodo": {
+                                        "type": "string",
+                                        "example": "aereo"
+                                    },
+                                    "producto_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Envío procesado correctamente"
+                    },
+                    "400": {
+                        "description": "Método de envío no válido"
+                    }
+                }
+            }
+        },
+        "/api/productos": {
+            "get": {
+                "tags": [
+                    "Productos"
+                ],
+                "summary": "Obtener todos los productos",
+                "operationId": "496dc08306524d77f18d124d1d6838aa",
+                "responses": {
+                    "200": {
+                        "description": "Lista de productos"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Productos"
+                ],
+                "summary": "Crear un nuevo producto",
+                "operationId": "48b59f126c849beb4d4de4ff83b7945f",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre",
+                                    "descripcion",
+                                    "precio",
+                                    "stock",
+                                    "proveedor_id",
+                                    "tipo"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string"
+                                    },
+                                    "descripcion": {
+                                        "type": "string"
+                                    },
+                                    "precio": {
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "stock": {
+                                        "type": "number"
+                                    },
+                                    "proveedor_id": {
+                                        "type": "number"
+                                    },
+                                    "tipo": {
+                                        "type": "string",
+                                        "enum": [
+                                            "fisico",
+                                            "digital"
+                                        ]
+                                    },
+                                    "peso": {
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "dimensiones": {
+                                        "type": "string"
+                                    },
+                                    "url_descarga": {
+                                        "type": "string"
+                                    },
+                                    "licencia": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Producto creado exitosamente"
+                    }
+                }
+            }
+        },
+        "/api/productos/{id}": {
+            "get": {
+                "tags": [
+                    "Productos"
+                ],
+                "summary": "Obtener un producto por ID",
+                "operationId": "672fde814ef8716ee902835cc96ae595",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Producto encontrado"
+                    },
+                    "404": {
+                        "description": "Producto no encontrado"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Productos"
+                ],
+                "summary": "Actualizar un producto",
+                "operationId": "20b20d8e59992eb88abad7dcef3db6d7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre",
+                                    "descripcion",
+                                    "precio",
+                                    "stock",
+                                    "proveedor_id",
+                                    "tipo"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string"
+                                    },
+                                    "descripcion": {
+                                        "type": "string"
+                                    },
+                                    "precio": {
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "stock": {
+                                        "type": "number"
+                                    },
+                                    "proveedor_id": {
+                                        "type": "number"
+                                    },
+                                    "tipo": {
+                                        "type": "string",
+                                        "enum": [
+                                            "fisico",
+                                            "digital"
+                                        ]
+                                    },
+                                    "peso": {
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "dimensiones": {
+                                        "type": "string"
+                                    },
+                                    "url_descarga": {
+                                        "type": "string"
+                                    },
+                                    "licencia": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Producto actualizado correctamente"
+                    },
+                    "404": {
+                        "description": "Producto no encontrado"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Productos"
+                ],
+                "summary": "Eliminar un producto",
+                "operationId": "4c0c7680428675134afd4d793f934f67",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Producto eliminado correctamente"
+                    },
+                    "404": {
+                        "description": "Producto no encontrado"
+                    }
+                }
+            }
+        },
+        "/api/proveedores": {
+            "get": {
+                "tags": [
+                    "Proveedores"
+                ],
+                "summary": "Obtener todos los proveedores",
+                "operationId": "5eb7d790ae5c32c59bd58744f5ed3da5",
+                "responses": {
+                    "200": {
+                        "description": "Lista de proveedores"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Proveedores"
+                ],
+                "summary": "Crear un nuevo proveedor",
+                "operationId": "5c1bcfb0dbccf86c376dc7a47fdff311",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre",
+                                    "contacto",
+                                    "telefono"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string"
+                                    },
+                                    "contacto": {
+                                        "type": "string"
+                                    },
+                                    "telefono": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Proveedor creado exitosamente"
+                    }
+                }
+            }
+        },
+        "/api/proveedores/{id}": {
+            "get": {
+                "tags": [
+                    "Proveedores"
+                ],
+                "summary": "Obtener un proveedor por ID",
+                "operationId": "1898d8b0458ba55e2c8240363838a2a6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Proveedor encontrado"
+                    },
+                    "404": {
+                        "description": "Proveedor no encontrado"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Proveedores"
+                ],
+                "summary": "Actualizar un proveedor",
+                "operationId": "72364f0ee2e9c4041a2f38af705cea3b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre",
+                                    "contacto",
+                                    "telefono"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string"
+                                    },
+                                    "contacto": {
+                                        "type": "string"
+                                    },
+                                    "telefono": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Proveedor actualizado correctamente"
+                    },
+                    "404": {
+                        "description": "Proveedor no encontrado"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Proveedores"
+                ],
+                "summary": "Eliminar un proveedor",
+                "operationId": "8b7ae059b2d7afad943975d96233b0b7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Proveedor eliminado correctamente"
+                    },
+                    "404": {
+                        "description": "Proveedor no encontrado"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Api",
+            "description": "Endpoints para gestionar los API"
+        },
+        {
+            "name": "Productos",
+            "description": "Endpoints para gestionar los productos"
+        },
+        {
+            "name": "Proveedores",
+            "description": "Endpoints para gestionar los proveedores"
+        }
+    ]
+}
